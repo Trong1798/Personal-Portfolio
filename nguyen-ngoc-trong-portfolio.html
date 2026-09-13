@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Nguyễn Ngọc Trọng — Video Editor, Graphic Designer & AI-assisted Developer">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <title>Nguyễn Ngọc Trọng — Creative Technologist</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap');
+
+    :root{
+      --bg:#050609;
+      --bg2:#090a10;
+      --panel:rgba(13,15,23,.68);
+      --line:rgba(255,255,255,.10);
+      --text:#f5f7fb;
+      --muted:#9298aa;
+      --cyan:#54f5ff;
+      --violet:#a77bff;
+      --pink:#ff5edb;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,system-ui,sans-serif;
+      overflow-x:hidden;
+      line-height:1.6;
+    }
+    a{color:inherit;text-decoration:none}
+    ::selection{background:rgba(84,245,255,.25)}
+
+    #particles{position:fixed;inset:0;z-index:-4}
+    .noise{
+      position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.035;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+    }
+    .aurora{
+      position:fixed;z-index:-3;pointer-events:none;filter:blur(80px);opacity:.22;
+      width:480px;height:480px;border-radius:50%;
+      background:var(--violet);top:-170px;right:-100px;
+      animation:float 12s ease-in-out infinite alternate;
+    }
+    .aurora.a2{
+      background:var(--cyan);width:380px;height:380px;left:-180px;top:48%;
+      animation-delay:-5s;
+    }
+    @keyframes float{to{transform:translate(80px,70px) scale(1.12)}}
+
+    .grid{
+      position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.14;
+      background-image:
+        linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
+      background-size:70px 70px;
+      mask-image:linear-gradient(to bottom,black,transparent 78%);
+    }
+
+    .container{width:min(var(--max),calc(100% - 40px));margin:auto}
+    .mono{font-family:"DM Mono",monospace}
+    .eyebrow{
+      color:var(--cyan);font:500 12px "DM Mono",monospace;
+      text-transform:uppercase;letter-spacing:.18em;
+      display:flex;align-items:center;gap:10px;
+    }
+    .eyebrow:before{content:"";width:30px;height:1px;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:20;
+      backdrop-filter:blur(18px);background:rgba(5,6,9,.62);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav-inner{height:74px;display:flex;align-items:center;justify-content:space-between}
+    .logo{font-family:"Space Grotesk";font-weight:700;letter-spacing:-.04em;font-size:20px}
+    .logo span{color:var(--cyan);text-shadow:0 0 18px rgba(84,245,255,.65)}
+    .nav-links{display:flex;gap:28px;color:#aeb3c2;font-size:13px}
+    .nav-links a{transition:.25s;position:relative}
+    .nav-links a:hover{color:var(--cyan)}
+    .nav-links a::after{
+      content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;
+      background:linear-gradient(90deg,var(--cyan),var(--violet));
+      transform:scaleX(0);transform-origin:left;transition:transform .25s ease;
+    }
+    .nav-links a:hover::after{transform:scaleX(1)}
+    .nav-cta{
+      padding:9px 15px;border:1px solid rgba(84,245,255,.35);
+      border-radius:8px;color:var(--cyan);font-size:12px;font-family:"DM Mono";
+      box-shadow:0 0 20px rgba(84,245,255,.06);transition:.25s;
+    }
+    .nav-cta:hover{background:rgba(84,245,255,.08);box-shadow:0 0 25px rgba(84,245,255,.18)}
+
+    .hero{min-height:100vh;display:flex;align-items:center;padding:130px 0 90px}
+    .hero-layout{display:grid;grid-template-columns:1.2fr .8fr;gap:70px;align-items:center}
+    h1{
+      font-family:"Space Grotesk","Inter",sans-serif;font-size:clamp(52px,8vw,104px);font-weight:900;
+      line-height:.91;letter-spacing:-.075em;margin:22px 0 28px;
+      max-width:850px;text-transform:uppercase;
+    }
+    .gradient-text{
+      background:linear-gradient(110deg,#fff 15%,#b6faff 45%,#9c76ff 80%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .hero-copy{font-size:17px;color:#a7acba;max-width:660px}
+    .hero-copy strong{color:#e9ecf3;font-weight:600}
+    .hero-actions{display:flex;gap:12px;margin-top:35px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;gap:9px;padding:13px 18px;border-radius:9px;
+      border:1px solid var(--line);font-size:13px;font-weight:600;transition:.25s;
+    }
+    .btn.primary{
+      color:#041013;background:var(--cyan);border-color:var(--cyan);
+      box-shadow:0 0 25px rgba(84,245,255,.2);
+    }
+    .btn.primary:hover{transform:translateY(-2px);box-shadow:0 0 35px rgba(84,245,255,.35)}
+    .btn.secondary:hover{border-color:rgba(167,123,255,.6);background:rgba(167,123,255,.07)}
+
+    .hero-card{
+      position:relative;min-height:430px;
+      padding:14px;
+      background:rgba(255,255,255,0.045);
+      border:1px solid rgba(255,255,255,0.09);
+      border-radius:22px;
+      backdrop-filter:blur(20px);
+      box-shadow:0 30px 80px -30px rgba(0,0,0,0.6);
+      overflow:visible;
+    }
+    .hero-card:before{
+      content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;
+      background:linear-gradient(140deg,var(--cyan),transparent 40%,var(--violet));
+      -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+      -webkit-mask-composite:xor;mask-composite:exclude;
+      opacity:0.6;pointer-events:none;
+    }
+    .hero-card:after{
+      content:"";position:absolute;width:240px;height:240px;right:-80px;top:-80px;border-radius:50%;
+      background:var(--violet);filter:blur(70px);opacity:.22;
+    }
+    .portrait-wrapper{
+      position:relative;
+      border-radius:14px;
+      overflow:hidden;
+      aspect-ratio:9/12;
+      background:linear-gradient(160deg,#1b1b24,#0a0a0d);
+    }
+    .portrait-wrapper .grid-overlay{
+      position:absolute;inset:0;
+      background-image:linear-gradient(rgba(255,255,255,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.045) 1px,transparent 1px);
+      background-size:24px 24px;
+      pointer-events:none;
+      z-index:1;
+    }
+    .hero-portrait{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center top;
+      display:block;
+    }
+    .orb{
+      display:none;
+    }
+    .ring{
+      display:none;
+    }
+    .ring.r2{
+      display:none;
+    }
+    @keyframes pulse{50%{transform:translate(-50%,-50%) scale(1.07);filter:drop-shadow(0 0 42px rgba(84,245,255,.5))}}
+    .card-top,.card-bottom{position:absolute;left:22px;right:22px;display:flex;justify-content:space-between;font:11px "DM Mono";color:#747b8e}
+    .card-top{top:20px}.card-bottom{bottom:20px}
+    .status{color:#65ffbd;display:flex;align-items:center;gap:7px}
+    .status i{width:6px;height:6px;border-radius:50%;background:#65ffbd;box-shadow:0 0 10px #65ffbd}
+
+    section{padding:115px 0}
+    .section-head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:42px}
+    h2{font:600 clamp(34px,5vw,60px)/1 "Space Grotesk";letter-spacing:-.055em;margin-top:15px}
+    .section-intro{color:var(--muted);max-width:430px;font-size:14px}
+
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);border-block:1px solid var(--line)}
+    .stat{padding:27px 22px;border-right:1px solid var(--line)}
+    .stat:last-child{border-right:0}
+    .stat b{display:block;font:600 32px "Space Grotesk";letter-spacing:-.05em}
+    .stat span{color:#777d8c;font-size:11px;font-family:"DM Mono"}
+
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+    .panel{
+      border:1px solid var(--line);border-radius:17px;background:var(--panel);
+      backdrop-filter:blur(12px);padding:30px;
+    }
+    .panel p{color:#a6abb9;font-size:15px}
+    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+    .tag{font:11px "DM Mono";padding:8px 10px;border:1px solid var(--line);border-radius:6px;color:#aeb4c2}
+    .tag.glow{color:var(--cyan);border-color:rgba(84,245,255,.3);background:rgba(84,245,255,.035)}
+
+    .projects{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .project{
+      position:relative;min-height:370px;border-radius:18px;border:1px solid var(--line);
+      background:#0b0d14;padding:30px;display:flex;flex-direction:column;justify-content:space-between;
+      transition:border-color .15s ease-out, transform .15s ease-out, box-shadow .15s ease-out;
+    }
+    .project.reveal:hover{
+      transform:translateY(-5px);
+      border-color:rgba(84,245,255,.5);
+      box-shadow:0 0 40px rgba(84,245,255,.2);
+    }
+    .project.reveal.voca:hover{
+      border-color:rgba(167,123,255,.5);
+      box-shadow:0 0 40px rgba(167,123,255,.2);
+    }
+    .project .glow-corner{
+      display:none;
+    }
+    .project:nth-child(1) .glow-corner{background:var(--cyan);}
+    .project:nth-child(2) .glow-corner{background:var(--violet);}
+    .project:after{
+      content:"";position:absolute;inset:0;pointer-events:none;
+      background:radial-gradient(circle at 80% 20%,rgba(84,245,255,.12),transparent 35%);
+    }
+    .project.voca:after{background:radial-gradient(circle at 80% 20%,rgba(167,123,255,.16),transparent 35%)}
+    .project-number{font:11px "DM Mono";color:#646a7b}
+    .project-icon{
+      width:64px;height:64px;border:1px solid rgba(84,245,255,.25);border-radius:15px;
+      display:grid;place-items:center;color:var(--cyan);font:700 22px "DM Mono";
+      box-shadow:inset 0 0 25px rgba(84,245,255,.04),0 0 25px rgba(84,245,255,.06);
+      overflow:hidden;
+    }
+    .project-icon img{
+      width:100%;height:100%;object-fit:cover;
+    }
+    .voca .project-icon{color:var(--violet);border-color:rgba(167,123,255,.3)}
+    .project h3{font:600 31px "Space Grotesk";letter-spacing:-.04em;margin:20px 0 8px}
+    .project small{color:#7d8494;font:11px "DM Mono"}
+    .project p{color:#999fad;font-size:13px;max-width:510px;margin-top:16px}
+    .project-foot{display:flex;justify-content:space-between;align-items:center;margin-top:30px;position:relative;z-index:2}
+    .workflow{font:10px "DM Mono";color:#707789;max-width:80%}
+    .arrow{color:var(--cyan);font-size:22px}
+
+    .timeline{position:relative;margin-top:25px}
+    .timeline:before{content:"";position:absolute;left:105px;top:0;bottom:0;width:1px;background:linear-gradient(180deg, #2DD4BF 0%, #A78BFA 50%, transparent 100%)}
+    .job{display:grid;grid-template-columns:105px 1fr;gap:38px;padding:0 0 48px;position:relative}
+    .job:last-child{padding-bottom:0}
+    .year{font:11px "DM Mono";color:#697081;padding-top:4px}
+    .job-dot{position:absolute;left:101px;top:3px;width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 15px var(--cyan)}
+    .job-content{padding-left:10px}
+    .job h3{font:600 20px "Space Grotesk"}
+    .job .role{font-size:12px;color:var(--cyan);font-family:"DM Mono";margin:3px 0 12px}
+    .job p{color:#858b9b;font-size:13px;max-width:720px}
+
+    .skills{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .skill-card{padding:27px 22px;border:1px solid var(--line);border-radius:15px;background:rgba(10,11,17,.7)}
+    .skill-card .icon-wrap{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg, rgba(45,212,191,0.16), rgba(167,139,250,0.16));margin-bottom:16px;color:#2DD4BF}
+    .skill-card h3{font:600 16px "Space Grotesk";margin:0 0 12px}
+    .skill-card ul{margin:0;padding:0;list-style:none}
+    .skill-card li{font-size:13px;color:#8e95a5;padding:5px 0;border-top:1px solid rgba(255,255,255,.05)}
+    .skill-card li:first-child{border-top:none}
+
+    .portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
+    .portfolio-card{
+      position:relative;border-radius:14px;cursor:pointer;
+      background:linear-gradient(160deg,#1c1c26,#0b0b0f);
+      border:1px solid var(--line);
+      transition:border-color .15s ease-out, transform .15s ease-out, box-shadow .15s ease-out;
+      overflow:hidden;
+      aspect-ratio:4/5;
+    }
+    .portfolio-card.reveal:hover{
+      transform:translateY(-5px);
+      border-color:rgba(167,123,255,.5);
+      box-shadow:0 0 40px rgba(167,123,255,.2);
+    }
+    .portfolio-card .glow-corner{
+      display:none;
+    }
+    .portfolio-card-inner{
+      position:relative;overflow:hidden;border-radius:14px;height:100%;
+    }
+    .portfolio-thumb{
+      position:absolute;inset:0;
+      background-size:cover;background-position:center;
+      transition:transform .4s ease;
+    }
+    .portfolio-card:hover .portfolio-thumb{
+      transform:scale(1.06);
+    }
+    /* Gradient overlay tối dần xuống dưới */
+    .portfolio-card-inner::after{
+      content:"";position:absolute;inset:0;
+      background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.85));
+      pointer-events:none;z-index:1;
+    }
+    .portfolio-thumb:after{
+      content:"▶";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.85);
+      width:48px;height:48px;border-radius:50%;
+      background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);
+      display:flex;align-items:center;justify-content:center;
+      font-size:18px;color:#fff;
+      opacity:0;transition:opacity .25s ease, transform .25s ease;z-index:2;
+    }
+    .portfolio-card:hover .portfolio-thumb:after{
+      opacity:1;transform:translate(-50%,-50%) scale(1);
+    }
+    .portfolio-meta{
+      position:absolute;bottom:14px;left:14px;right:14px;z-index:2;
+    }
+    .portfolio-tag{
+      font-size:0.72rem;color:var(--cyan);margin-bottom:4px;display:block;
+      text-transform:uppercase;letter-spacing:0.5px;
+    }
+    .portfolio-name{color:var(--text);font-weight:600;font-size:0.92rem;display:block}
+
+    /* Lightbox for images */
+    .lightbox{
+      position:fixed;inset:0;z-index:9999;
+      background:rgba(0,0,0,0.95);
+      display:none;align-items:center;justify-content:center;
+      opacity:0;transition:opacity .3s ease;
+    }
+    .lightbox.active{display:flex;opacity:1}
+    .lightbox-content{
+      position:relative;max-width:90vw;max-height:90vh;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .lightbox-image{
+      max-width:100%;max-height:90vh;object-fit:contain;
+      border-radius:8px;box-shadow:0 0 80px rgba(84,245,255,.15);
+    }
+    .lightbox-nav{
+      position:absolute;top:50%;transform:translateY(-50%);
+      width:50px;height:50px;border-radius:50%;
+      background:rgba(255,255,255,0.1);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,0.2);
+      color:#fff;font-size:28px;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      transition:all .25s ease;z-index:10000;
+    }
+    .lightbox-nav:hover{background:rgba(84,245,255,0.25);border-color:var(--cyan)}
+    .lightbox-prev{left:20px}
+    .lightbox-next{right:20px}
+    .lightbox-close{
+      position:absolute;top:30px;right:30px;
+      width:44px;height:44px;border-radius:50%;
+      background:rgba(255,255,255,0.1);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,0.2);
+      color:#fff;font-size:28px;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      transition:all .25s ease;z-index:10001;
+    }
+    .lightbox-close:hover{background:rgba(255,82,82,0.3);border-color:#ff5252}
+    .lightbox-counter{
+      position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+      padding:8px 16px;border-radius:20px;
+      background:rgba(0,0,0,0.6);backdrop-filter:blur(10px);
+      color:var(--cyan);font-size:13px;font-family:"DM Mono";
+      border:1px solid rgba(84,245,255,0.3);
+    }
+
+    /* Video Modal */
+    .video-modal{
+      position:fixed;inset:0;z-index:9999;
+      background:rgba(0,0,0,0.92);
+      display:none;align-items:center;justify-content:center;
+      opacity:0;transition:opacity .3s ease;
+    }
+    .video-modal.active{display:flex;opacity:1}
+    .video-container{
+      width:90vw;max-width:1200px;aspect-ratio:16/9;
+      position:relative;
+    }
+    .video-container iframe{
+      width:100%;height:100%;border:none;
+      border-radius:12px;
+      box-shadow:0 0 80px rgba(167,123,255,.25);
+    }
+    .modal-close{
+      position:absolute;top:20px;right:20px;
+      width:44px;height:44px;border-radius:50%;
+      background:rgba(255,255,255,0.1);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,0.2);
+      color:#fff;font-size:28px;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      transition:all .25s ease;z-index:10001;
+    }
+    .modal-close:hover{background:rgba(255,82,82,0.3);border-color:#ff5252}
+
+    /* Image icon for image cards */
+    .portfolio-card[data-type="image"] .portfolio-thumb:after{
+      content:"🖼";font-size:24px;
+    }
+
+    .strengths{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .strength{
+      padding:17px 20px;border:1px solid var(--line);border-radius:10px;
+      background:rgba(255,255,255,.018);color:#a5aab8;font-size:13px;
+      transition:.25s;
+    }
+    .strength:hover{border-color:rgba(84,245,255,.25);color:#e6e9ef;transform:translateX(3px)}
+    .strength b{color:var(--cyan);font-family:"DM Mono";font-size:11px;margin-right:10px}
+
+    .contact{
+      text-align:center;border:1px solid var(--line);border-radius:24px;
+      padding:75px 25px;background:
+      radial-gradient(circle at 50% 0,rgba(84,245,255,.09),transparent 38%),rgba(11,13,19,.72);
+      overflow:hidden;position:relative;
+    }
+    .contact h2{font-size:clamp(40px,6vw,76px);max-width:800px;margin:15px auto}
+    .contact p{color:#8d93a2;max-width:550px;margin:0 auto}
+    .contact-links{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:30px}
+    footer{padding:30px 0 45px;color:#626979;font:10px "DM Mono";display:flex;justify-content:space-between}
+    .availability{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-top:22px}
+    .availability span{font:10px "DM Mono";border:1px solid rgba(101,255,189,.2);color:#74cda4;padding:7px 10px;border-radius:20px;background:rgba(101,255,189,.025)}
+
+    /* Work Type Card with Glassmorphism */
+    .work-type-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 16px 24px;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(8px);
+    }
+    .work-type-card .title {
+      color: #a0a5b5;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+    .work-type-card .badges {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .work-type-card .badge {
+      font: 10px "DM Mono";
+      border: 1px solid rgba(101,255,189,.2);
+      color: #74cda4;
+      padding: 7px 10px;
+      border-radius: 20px;
+      background: rgba(101,255,189,.025);
+    }
+
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    @media(max-width:850px){
+      .nav-links{display:none}
+      .hero-layout,.about-grid,.projects{grid-template-columns:1fr}
+      .hero-card{min-height:330px}
+      .stats{grid-template-columns:1fr 1fr}
+      .stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
+      .skills{grid-template-columns:1fr}
+      .section-head{display:block}.section-intro{margin-top:20px}
+      .timeline:before{left:77px}
+      .job{grid-template-columns:77px 1fr;gap:25px}
+      .job-dot{left:73px}
+    }
+    @media(max-width:520px){
+      .container{width:min(100% - 28px,var(--max))}
+      nav .nav-cta{display:none}
+      .hero{padding-top:110px}
+      h1{font-size:54px}
+      section{padding:80px 0}
+      .stats{grid-template-columns:1fr}
+      .stat{border-right:0!important;border-bottom:1px solid var(--line)!important}
+      .stat:last-child{border-bottom:0!important}
+      .strengths{grid-template-columns:1fr}
+      footer{display:block;text-align:center}
+      footer span{display:block;margin-top:8px}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="particles"></canvas>
+  <div class="grid"></div>
+  <div class="noise"></div>
+  <div class="aurora"></div>
+  <div class="aurora a2"></div>
+
+  <nav>
+    <div class="container nav-inner">
+      <a href="#" class="logo">TRỌNG<span>.</span>NGUYỄN</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a class="nav-cta" href="https://zalo.me/0585538208" target="_blank">LET'S TALK ↗</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-layout">
+        <div class="reveal">
+          <div class="eyebrow">Creative × Technology</div>
+          <h1>NGUYỄN<br><span class="gradient-text">NGỌC TRỌNG</span></h1>
+          <p class="hero-copy">
+            <strong>Video Editor · Graphic Designer · AI-assisted Developer</strong>
+          </p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn primary">Xem dự án <span>↓</span></a>
+            <a href="https://www.behance.net/trongnguyen5/" target="_blank" class="btn secondary">Behance ↗</a>
+          </div>
+        </div>
+
+        <div class="hero-card reveal">
+          <div class="card-top"><span>TRONG.N // PORTFOLIO_2026</span><span>V.01</span></div>
+          <div class="portrait-wrapper">
+            <div class="grid-overlay"></div>
+            <img src="potrait.png" alt="Nguyen Ngoc Trong" class="hero-portrait">
+          </div>
+          <div class="card-bottom">
+            <span class="status"><i></i> AVAILABLE FOR WORK</span>
+            <span>16°N / 108°E</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="stats reveal">
+        <div class="stat"><b>08+</b><span>Năm kinh nghiệm</span></div>
+        <div class="stat"><b>1000+</b><span>Video & ấn phẩm truyền thông</span></div>
+        <div class="stat"><b>02+</b><span>Công cụ AI tự phát triển (AutoVoice, VocaGen)</span></div>
+      </div>
+    </div>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">01 / About</div><h2>Tư duy sáng tạo.<br>Tinh thần công nghệ.</h2></div>
+        </div>
+        <div class="about-grid">
+          <div class="panel reveal">
+            <p>
+              Mình là <strong>Video Editor & Graphic Designer</strong> với kinh nghiệm trong YouTube,
+              TikTok/Reels, Movie Recap và quảng cáo bất động sản. Thế mạnh nằm ở storytelling,
+              cảm nhịp, hậu kỳ và tối ưu Retention.
+            </p>
+            <br>
+            <p>
+              Gần đây mình tập trung mạnh vào <strong>AI-assisted Development</strong> — sử dụng
+              AI coding tools để thiết kế UI/UX, xây dựng desktop tools và tự động hóa những
+              công đoạn lặp lại trong production workflow.
+            </p>
+            <div class="tags">
+              <span class="tag glow">Storytelling</span><span class="tag glow">Retention</span>
+              <span class="tag">AI Workflow</span><span class="tag">Vibe Coding</span>
+              <span class="tag">Video Production</span>
+            </div>
+          </div>
+          <div class="panel reveal">
+            <div class="eyebrow">What I do</div>
+            <div style="margin-top:25px;display:grid;gap:20px">
+              <div><b>01 — VIDEO</b><p style="margin-top:5px">YouTube · Shorts · Reels · Ads · Movie Recap</p></div>
+              <div><b>02 — DESIGN</b><p style="margin-top:5px">Thumbnail · Key Visual · Banner · Marketing</p></div>
+              <div><b>03 — AI WORKFLOW</b><p style="margin-top:5px">Automation · OCR · TTS · Localization · AI tools</p></div>
+              <div><b>04 — DEVELOPMENT</b><p style="margin-top:5px">AI-assisted desktop tools · UI/UX · Vibe Coding</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">02 / Featured Projects</div><h2>Công cụ tự phát triển.</h2></div>
+          <p class="section-intro">Không chỉ sử dụng AI — mình xây dựng những công cụ giải quyết trực tiếp các vấn đề trong production.</p>
+        </div>
+        <div class="projects">
+          <article class="project reveal">
+            <div class="glow-corner"></div>
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:start">
+                <div class="project-icon"><img src="AutoVoice.png" alt="AutoVoice Logo"></div><span class="project-number">01 / 02</span>
+              </div>
+              <h3>AutoVoice</h3>
+              <small>AI VIDEO LOCALIZATION TOOL · PRODUCT OWNER & DEVELOPER</small>
+              <p>Tự động hóa quy trình dịch và lồng tiếng video đa ngôn ngữ, từ OCR đến subtitle, translation, TTS và export.</p>
+            </div>
+            <div class="project-foot">
+              <span class="workflow">VIDEO → OCR → SUBTITLE → TRANSLATION → TTS → EXPORT</span>
+              <span class="arrow">↗</span>
+            </div>
+          </article>
+
+          <article class="project voca reveal">
+            <div class="glow-corner"></div>
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:start">
+                <div class="project-icon"><img src="VocaGen.png" alt="VocaGen Logo"></div><span class="project-number">02 / 02</span>
+              </div>
+              <h3>VocaGen</h3>
+              <small>AI TTS & VOICE CLONING · IN DEVELOPMENT</small>
+              <p>Công cụ TTS và voice cloning với Vietnamese Text Normalization, đa engine voice và khả năng clone giọng từ dữ liệu âm thanh ngắn.</p>
+            </div>
+            <div class="project-foot">
+              <span class="workflow">NORMALIZE → TTS → VOICE CLONE → EXPORT</span>
+              <span class="arrow" style="color:var(--violet)">↗</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">03 / Experience</div><h2>Hành trình sự nghiệp.</h2></div>
+        </div>
+        <div class="timeline">
+          <div class="job reveal">
+            <div class="year">2023 — NOW</div><i class="job-dot"></i>
+            <div class="job-content"><h3>Freelancer</h3><div class="role">VIDEO PRODUCTION & AI WORKFLOW BUILDER</div>
+              <p>Dựng video đa nền tảng, tối ưu Retention; xây dựng workflow AI cho subtitle/lồng tiếng, giảm khoảng 50% thời gian hậu kỳ; trực tiếp quản lý khách hàng, tiến độ và chất lượng.</p></div>
+          </div>
+          <div class="job reveal">
+            <div class="year">2022 — 2023</div><i class="job-dot"></i>
+            <div class="job-content"><h3>PRAZ Media</h3><div class="role">GRAPHIC DESIGNER</div>
+              <p>Thiết kế ấn phẩm truyền thông, nhận diện thương hiệu và nội dung số cho các chiến dịch Marketing.</p></div>
+          </div>
+          <div class="job reveal">
+            <div class="year">2021 — 2022</div><i class="job-dot"></i>
+            <div class="job-content"><h3>NGHIEN MEDIA</h3><div class="role">GRAPHIC DESIGNER & VIDEO EDITOR</div>
+              <p>Biên tập social media, quảng cáo; hậu kỳ âm thanh, hình ảnh, màu sắc; thiết kế Key Visual, Banner và Thumbnail tối ưu CTR.</p></div>
+          </div>
+          <div class="job reveal">
+            <div class="year">2020 — 2021</div><i class="job-dot"></i>
+            <div class="job-content"><h3>DLC COMPANY</h3><div class="role">VIDEO EDITOR</div>
+              <p>Dựng và tối ưu nội dung video theo định dạng và tiêu chuẩn của Facebook.</p></div>
+          </div>
+          <div class="job reveal">
+            <div class="year">2019 — 2020</div><i class="job-dot"></i>
+            <div class="job-content"><h3>DALATTOURIST</h3><div class="role">GRAPHIC DESIGNER</div>
+              <p>Thiết kế banner, poster, tài liệu marketing và ấn phẩm truyền thông sự kiện.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">04 / Skills</div><h2>Năng lực chuyên môn.</h2></div>
+        </div>
+        <div class="skills">
+          <div class="skill-card reveal">
+            <div class="icon-wrap">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 8 6 4-6 4Z"/></svg>
+            </div>
+            <h3>Sáng tạo & Truyền thông</h3>
+            <ul>
+              <li>Video Editing</li>
+              <li>Graphic Design</li>
+              <li>Storytelling</li>
+              <li>Thumbnail Design</li>
+              <li>Tối ưu Retention</li>
+            </ul>
+          </div>
+          <div class="skill-card reveal">
+            <div class="icon-wrap">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>
+            </div>
+            <h3>AI & Tự động hóa</h3>
+            <ul>
+              <li>AI Workflow Automation</li>
+              <li>AI-assisted Development (Cursor/Claude)</li>
+              <li>Prompt Engineering</li>
+              <li>Thiết kế Quy trình & Sản phẩm</li>
+            </ul>
+          </div>
+          <div class="skill-card reveal">
+            <div class="icon-wrap">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
+            </div>
+            <h3>Phần mềm chuyên dụng</h3>
+            <ul>
+              <li>Adobe Premiere Pro</li>
+              <li>After Effects</li>
+              <li>Photoshop</li>
+              <li>CapCut</li>
+            </ul>
+          </div>
+          <div class="skill-card reveal">
+            <div class="icon-wrap">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+            </div>
+            <h3>Công cụ AI</h3>
+            <ul>
+              <li>ChatGPT · Gemini · Claude</li>
+              <li>Veo · Hailuo AI</li>
+              <li>ElevenLabs · Suno</li>
+              <li>OmniVoice</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">05 / Portfolio</div><h2>Portfolio nổi bật.</h2></div>
+          <p style="color:var(--muted);font-size:15px;max-width:660px;margin-top:12px;">Dự án Video & Thiết kế</p>
+        </div>
+        <div class="portfolio-grid">
+          <!-- Image Card 1: AutoVoice -->
+          <div class="portfolio-card reveal" data-type="image" data-images='["AutoVoice.png", "Autovoice1.png", "Autovoice2.png", "Autovoice3.png"]'>
+            <div class="glow-corner"></div>
+            <div class="portfolio-card-inner">
+              <div class="portfolio-thumb" style="background-image:url('AutoVoice.png')"></div>
+              <div class="portfolio-meta">
+                <span class="portfolio-tag">AI Product Design</span>
+                <span class="portfolio-name">AutoVoice - Voice Cloning App</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Image Card 2: VocaGen -->
+          <div class="portfolio-card reveal" data-type="image" data-images='["VocaGen.png", "VocaGen1.png", "VocaGen2.png"]'>
+            <div class="glow-corner"></div>
+            <div class="portfolio-card-inner">
+              <div class="portfolio-thumb" style="background-image:url('VocaGen.png')"></div>
+              <div class="portfolio-meta">
+                <span class="portfolio-tag">AI Product Design</span>
+                <span class="portfolio-name">VocaGen - AI Voice Generator</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video Card 1 -->
+          <div class="portfolio-card reveal" data-type="video" data-video-id="1ygate054X7cXbLN364DftMVcIxB5jBVu">
+            <div class="glow-corner"></div>
+            <div class="portfolio-card-inner">
+              <div class="portfolio-thumb" style="background-image:url('PRL.png')"></div>
+              <div class="portfolio-meta">
+                <span class="portfolio-tag">YouTube</span>
+                <span class="portfolio-name">Series Review Công nghệ</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video Card 2 -->
+          <div class="portfolio-card reveal" data-type="video" data-video-id="1uD_h1UaIL0_LPG9L5oCZTbUerSnJT42K">
+            <div class="glow-corner"></div>
+            <div class="portfolio-card-inner">
+              <div class="portfolio-thumb" style="background-image:url('BERKLEY.png')"></div>
+              <div class="portfolio-meta">
+                <span class="portfolio-tag">TikTok / Reels</span>
+                <span class="portfolio-name">Chiến dịch nội dung ngắn</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video Card 3 -->
+          <div class="portfolio-card reveal" data-type="video" data-video-id="19hSgJIbDAG5r29GDbRpUlr4fu8WGDq0_">
+            <div class="glow-corner"></div>
+            <div class="portfolio-card-inner">
+              <div class="portfolio-thumb" style="background-image:url('15.png')"></div>
+              <div class="portfolio-meta">
+                <span class="portfolio-tag">Movie Recap</span>
+                <span class="portfolio-name">Series Recap phim chiếu rạp</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video Card 4 -->
+          <div class="portfolio-card reveal" data-type="video" data-video-id="1N28zGBu8sMl7Oai6vw-O87xz_KmbhytL">
+            <div class="glow-corner"></div>
+            <div class="portfolio-card-inner">
+              <div class="portfolio-thumb" style="background-image:url('SAN.png')"></div>
+              <div class="portfolio-meta">
+                <span class="portfolio-tag">Quảng cáo Bất động sản</span>
+                <span class="portfolio-name">Video flycam khu nghỉ dưỡng</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact reveal">
+          <div class="eyebrow" style="justify-content:center">06 / Contact</div>
+          <h2>Sẵn sàng cho <span class="gradient-text">dự án mới.</span></h2>
+          <div class="work-type-card">
+            <span class="title">Hình thức làm việc</span>
+            <div class="badges">
+              <span class="badge">FULL-TIME</span>
+              <span class="badge">HYBRID</span>
+              <span class="badge">REMOTE</span>
+              <span class="badge">FREELANCE</span>
+            </div>
+          </div>
+          <div class="contact-links">
+            <a class="btn primary" href="mailto:trongnguyen.tofu@gmail.com">trongnguyen.tofu@gmail.com ↗</a>
+            <a class="btn secondary" href="https://zalo.me/0585538208" target="_blank">0585 538 208 ↗</a>
+            <a class="btn secondary" href="https://www.behance.net/trongnguyen5/" target="_blank">Behance ↗</a>
+            <a class="btn secondary" href="https://www.facebook.com/trong1598/" target="_blank">Facebook ↗</a>
+          </div>
+          <p style="margin-top:24px;font-size:15px;color:var(--muted);">📍 Ninh Chữ, Khánh Hòa</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="container">
+    <footer>
+      <span>© 2026 NGUYỄN NGỌC TRỌNG</span>
+      <span>VIDEO · DESIGN · AI · DEVELOPMENT</span>
+    </footer>
+  </div>
+
+  <!-- Image Lightbox -->
+  <div class="lightbox" id="imageLightbox">
+    <button class="lightbox-close" id="lightboxClose">×</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button>
+    <div class="lightbox-content">
+      <img class="lightbox-image" id="lightboxImage" src="" alt="">
+      <div class="lightbox-counter" id="lightboxCounter">1 / 1</div>
+    </div>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext">›</button>
+  </div>
+
+  <!-- Video Modal -->
+  <div class="video-modal" id="videoModal">
+    <button class="modal-close" id="modalClose">×</button>
+    <div class="video-container">
+      <iframe id="videoFrame" src="" allow="autoplay" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <script>
+    // Lightweight PDE-style particle field
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let mouse = {x:-9999,y:-9999};
+
+    function resize(){
+      canvas.width = innerWidth * devicePixelRatio;
+      canvas.height = innerHeight * devicePixelRatio;
+      canvas.style.width = innerWidth+'px';
+      canvas.style.height = innerHeight+'px';
+      ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+      const count = Math.min(95, Math.floor(innerWidth / 14));
+      particles = Array.from({length:count},()=>({
+        x:Math.random()*innerWidth,y:Math.random()*innerHeight,
+        vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18,
+        r:Math.random()*1.4+.3
+      }));
+    }
+    addEventListener('resize',resize);
+    addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY});
+    resize();
+
+    function animate(){
+      ctx.clearRect(0,0,innerWidth,innerHeight);
+      for(const p of particles){
+        const dx=p.x-mouse.x,dy=p.y-mouse.y,d=Math.hypot(dx,dy);
+        if(d<130){p.vx += dx/d*.006;p.vy += dy/d*.006}
+        p.x+=p.vx;p.y+=p.vy;
+        if(p.x<0||p.x>innerWidth)p.vx*=-1;
+        if(p.y<0||p.y>innerHeight)p.vy*=-1;
+        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle='rgba(130,190,255,.5)';ctx.fill();
+      }
+      for(let i=0;i<particles.length;i++){
+        for(let j=i+1;j<particles.length;j++){
+          const a=particles[i],b=particles[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+          if(d<105){
+            ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+            ctx.strokeStyle=`rgba(100,180,255,${(1-d/105)*.08})`;ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    const observer = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    // Image Lightbox functionality
+    const imageLightbox = document.getElementById('imageLightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxCounter = document.getElementById('lightboxCounter');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
+
+    let currentImages = [];
+    let currentImageIndex = 0;
+
+    function showImageLightbox(images, index) {
+      currentImages = images;
+      currentImageIndex = index;
+      updateLightboxImage();
+      imageLightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function updateLightboxImage() {
+      lightboxImage.src = currentImages[currentImageIndex];
+      lightboxCounter.textContent = `${currentImageIndex + 1} / ${currentImages.length}`;
+      lightboxPrev.style.display = currentImageIndex === 0 ? 'none' : 'flex';
+      lightboxNext.style.display = currentImageIndex === currentImages.length - 1 ? 'none' : 'flex';
+    }
+
+    function closeLightbox() {
+      imageLightbox.classList.remove('active');
+      document.body.style.overflow = '';
+      setTimeout(() => { lightboxImage.src = ''; }, 300);
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxPrev.addEventListener('click', () => {
+      if (currentImageIndex > 0) { currentImageIndex--; updateLightboxImage(); }
+    });
+    lightboxNext.addEventListener('click', () => {
+      if (currentImageIndex < currentImages.length - 1) { currentImageIndex++; updateLightboxImage(); }
+    });
+    imageLightbox.addEventListener('click', (e) => {
+      if (e.target === imageLightbox) closeLightbox();
+    });
+
+    // Keyboard navigation for lightbox
+    document.addEventListener('keydown', (e) => {
+      if (imageLightbox.classList.contains('active')) {
+        if (e.key === 'Escape') {
+          closeLightbox();
+        } else if (e.key === 'ArrowLeft' && currentImageIndex > 0) {
+          currentImageIndex--;
+          updateLightboxImage();
+        } else if (e.key === 'ArrowRight' && currentImageIndex < currentImages.length - 1) {
+          currentImageIndex++;
+          updateLightboxImage();
+        }
+      }
+    });
+
+    // Video Modal functionality
+    const videoModal = document.getElementById('videoModal');
+    const videoFrame = document.getElementById('videoFrame');
+    const modalClose = document.getElementById('modalClose');
+
+    function showVideoModal(videoId) {
+      const embedUrl = `https://drive.google.com/file/d/${videoId}/preview`;
+      videoFrame.src = embedUrl;
+      videoModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeVideoModal() {
+      videoModal.classList.remove('active');
+      document.body.style.overflow = '';
+      setTimeout(() => { videoFrame.src = ''; }, 300);
+    }
+
+    modalClose.addEventListener('click', closeVideoModal);
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) closeVideoModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+        closeVideoModal();
+      }
+    });
+
+    // Attach click handlers to portfolio cards
+    document.querySelectorAll('.portfolio-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const type = card.dataset.type;
+        if (type === 'image') {
+          const images = JSON.parse(card.dataset.images);
+          showImageLightbox(images, 0);
+        } else if (type === 'video') {
+          const videoId = card.dataset.videoId;
+          showVideoModal(videoId);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
