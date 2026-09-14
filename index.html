@@ -456,8 +456,50 @@
     .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
     .reveal.visible{opacity:1;transform:translateY(0)}
 
+    /* Mobile Menu Button */
+    .mobile-menu-btn{
+      display:none;
+      background:none;
+      border:none;
+      color:var(--text);
+      font-size:24px;
+      cursor:pointer;
+      padding:8px;
+      transition:color .3s ease;
+    }
+    .mobile-menu-btn:hover{color:var(--cyan)}
+    .mobile-menu-btn.active .menu-icon-bar:nth-child(1){transform:rotate(45deg) translateY(8px)}
+    .mobile-menu-btn.active .menu-icon-bar:nth-child(2){opacity:0}
+    .mobile-menu-btn.active .menu-icon-bar:nth-child(3){transform:rotate(-45deg) translateY(-8px)}
+    .menu-icon-bar{
+      display:block;
+      width:24px;
+      height:2px;
+      background:var(--text);
+      margin:5px 0;
+      transition:all .3s ease;
+      border-radius:2px;
+    }
+
     @media(max-width:850px){
-      .nav-links{display:none}
+      .mobile-menu-btn{display:block}
+      .nav-links{
+        display:none;
+        position:fixed;
+        top:74px;
+        left:0;
+        right:0;
+        background:rgba(5,6,9,.98);
+        backdrop-filter:blur(20px);
+        flex-direction:column;
+        padding:30px;
+        gap:20px;
+        border-bottom:1px solid rgba(255,255,255,.08);
+        box-shadow:0 10px 40px rgba(0,0,0,.5);
+        z-index:100;
+      }
+      .nav-links.mobile-active{display:flex}
+      .nav-links a{font-size:16px;padding:12px 0}
       .hero-layout,.about-grid,.projects{grid-template-columns:1fr}
       .hero-card{min-height:330px}
       .stats{grid-template-columns:1fr 1fr}
@@ -467,6 +509,118 @@
       .timeline:before{left:77px}
       .job{grid-template-columns:77px 1fr;gap:25px}
       .job-dot{left:73px}
+    }
+
+    /* Mobile Optimizations for Portfolio & Cards */
+    @media(max-width:768px){
+      /* Fix Portfolio Grid - 1 column on mobile */
+      .portfolio-grid{
+        grid-template-columns:1fr !important;
+        gap:20px !important;
+      }
+      
+      .portfolio-card{
+        padding:20px !important;
+        min-height:auto !important;
+      }
+      
+      .portfolio-card img{
+        width:100%;
+        height:auto;
+        object-fit:cover;
+      }
+      
+      .portfolio-card .portfolio-card-header h3{
+        font-size:1.1rem !important;
+      }
+      
+      .portfolio-card .portfolio-card-header p{
+        font-size:0.85rem !important;
+      }
+
+      /* Optimize Typography */
+      .hero-title{
+        font-size:2rem !important;
+        line-height:1.2 !important;
+      }
+      
+      .hero-subtitle{
+        font-size:0.95rem !important;
+      }
+      
+      h2{
+        font-size:1.8rem !important;
+      }
+      
+      /* Section Spacing */
+      section{
+        padding:50px 0 !important;
+      }
+      
+      .container{
+        width:calc(100% - 32px) !important;
+      }
+
+      /* Buttons & CTA */
+      .hero-actions{
+        flex-direction:column;
+        width:100%;
+        gap:12px;
+      }
+      
+      .hero-actions a,
+      .hero-actions button{
+        width:100%;
+        justify-content:center;
+      }
+
+      /* Skill Cards */
+      .skill-card{
+        padding:20px !important;
+      }
+
+      /* Work Type Cards */
+      .work-type-card{
+        padding:20px !important;
+      }
+      
+      .work-type-badges{
+        display:flex;
+        flex-wrap:wrap;
+        gap:8px;
+      }
+
+      /* Navigation adjustments */
+      nav{
+        position:fixed;
+      }
+      
+      .nav-inner{
+        height:64px;
+      }
+      
+      .logo{
+        font-size:18px;
+      }
+    }
+
+    /* Extra small devices */
+    @media(max-width:480px){
+      .hero-title{
+        font-size:1.75rem !important;
+      }
+      
+      h2{
+        font-size:1.5rem !important;
+      }
+      
+      .portfolio-card{
+        padding:16px !important;
+      }
+      
+      .stats{
+        grid-template-columns:1fr !important;
+      }
     }
     @media(max-width:520px){
       .container{width:min(100% - 28px,var(--max))}
@@ -502,6 +656,11 @@
         <a href="#contact">Contact</a>
       </div>
       <a class="nav-cta" href="https://zalo.me/0585538208" target="_blank">LET'S TALK ↗</a>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+        <span class="menu-icon-bar"></span>
+        <span class="menu-icon-bar"></span>
+        <span class="menu-icon-bar"></span>
+      </button>
     </div>
   </nav>
 
@@ -1002,6 +1161,38 @@
         }
       });
     });
+
+    // Mobile Menu Toggle functionality
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('mobile-active');
+        mobileMenuBtn.classList.toggle('active');
+        document.body.style.overflow = navLinks.classList.contains('mobile-active') ? 'hidden' : '';
+      });
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('mobile-active');
+          mobileMenuBtn.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (navLinks.classList.contains('mobile-active') && 
+            !navLinks.contains(e.target) && 
+            !mobileMenuBtn.contains(e.target)) {
+          navLinks.classList.remove('mobile-active');
+          mobileMenuBtn.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    }
   </script>
 </body>
 </html>
