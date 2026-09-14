@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <meta name="description" content="Nguyễn Ngọc Trọng — Video Editor, Graphic Designer & AI-assisted Developer">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <title>Nguyễn Ngọc Trọng — Creative Technologist</title>
@@ -23,13 +23,15 @@
     }
 
     *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
+    html{scroll-behavior:smooth;max-width:100vw;overflow-x:hidden}
     body{
       background:var(--bg);
       color:var(--text);
       font-family:Inter,system-ui,sans-serif;
       overflow-x:hidden;
       line-height:1.6;
+      max-width:100vw;
+      position:relative;
     }
     a{color:inherit;text-decoration:none}
     ::selection{background:rgba(84,245,255,.25)}
@@ -60,7 +62,7 @@
       mask-image:linear-gradient(to bottom,black,transparent 78%);
     }
 
-    .container{width:min(var(--max),calc(100% - 40px));margin:auto}
+    .container{width:min(var(--max),calc(100% - 40px));margin:auto;max-width:100%;overflow-x:hidden}
     .mono{font-family:"DM Mono",monospace}
     .eyebrow{
       color:var(--cyan);font:500 12px "DM Mono",monospace;
@@ -99,6 +101,7 @@
       font-family:"Space Grotesk","Inter",sans-serif;font-size:clamp(52px,8vw,104px);font-weight:900;
       line-height:.91;letter-spacing:-.075em;margin:22px 0 28px;
       max-width:850px;text-transform:uppercase;
+      word-wrap:break-word;overflow-wrap:break-word;
     }
     .gradient-text{
       background:linear-gradient(110deg,#fff 15%,#b6faff 45%,#9c76ff 80%);
@@ -513,6 +516,16 @@
 
     /* Mobile Optimizations for Portfolio & Cards */
     @media(max-width:768px){
+      /* Prevent horizontal overflow on all elements */
+      *{
+        max-width:100%;
+      }
+      
+      img, video, iframe, embed, object{
+        max-width:100%;
+        height:auto;
+      }
+      
       /* Fix Portfolio Grid - 1 column on mobile */
       .portfolio-grid{
         grid-template-columns:1fr !important;
@@ -539,6 +552,11 @@
       }
 
       /* Optimize Typography */
+      h1{
+        font-size:clamp(2rem,8vw,3rem) !important;
+        line-height:1.1 !important;
+      }
+      
       .hero-title{
         font-size:2rem !important;
         line-height:1.2 !important;
